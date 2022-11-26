@@ -1,0 +1,161 @@
+[
+    {
+        "Brand-name": "Cannon",
+        "products": [
+            {
+                "name": "Cannon 800d",
+                "original-price": 58000,
+                "resell-price": 35000,
+                "Location": "U.K",
+                "img": "https://www.startech.com.bd/image/cache/catalog/dslr-camera/canon/800d/800d-9-500x500.jpg",
+                "Uses": "5 months"
+            },
+            {
+                "name": "Cannon 700d",
+                "original-price": 48000,
+                "resell-price": 30000,
+                "Location": "U.S.A",
+                "img": "https://www.shopz.com.bd/wp-content/uploads/2019/09/Canon-EOS-700D.jpg",
+                "Uses": "4 months"
+            },
+            {
+                "name": "Cannon 200d ii",
+                "original-price": 68000,
+                "resell-price": 45000,
+                "Location": "Canada",
+                "img": "https://my-live-01.slatic.net/p/95e5309959bc86da5d13cbc4dc173629.jpg",
+                "Uses": "3 months"
+            },
+            {
+                "name": "Cannon 750d",
+                "original-price": 58000,
+                "resell-price": 35000,
+                "Location": "Norway",
+                "img": "https://www.bdstall.com/asset/product-image/giant_46200.jpg",
+                "Uses": "5 months"
+            },
+            {
+                "name": "Cannon 90d",
+                "original-price": 108000,
+                "resell-price": 80000,
+                "Location": "Australia",
+                "img": "https://www.startech.com.bd/image/cache/catalog/dslr-camera/canon/eos-90d/eos-90d-1-500x500.jpg",
+                "Uses": "2 months"
+            },
+            {
+                "name": "Cannon M50 ii",
+                "original-price": 80000,
+                "resell-price": 50000,
+                "Location": "Switzerland",
+                "img": "https://www.startech.com.bd/image/cache/catalog/camera/mirriorless/canon/eos-m50-mark-ii/eos-m50-mark-ii-06-500x500.jpg",
+                "Uses": "6 months"
+            }
+        ]
+    },
+    {
+        "Brand-name": "Sony",
+        "products": [
+            {
+                "name": "Sony A6400",
+                "original-price": 58000,
+                "resell-price": 35000,
+                "Location": "U.K",
+                "img": "https://www.startech.com.bd/image/cache/catalog/digital-camera/sony/alpha-a6400/alpha-a6400-1-500x500.jpg",
+                "Uses": "5 months"
+            },
+            {
+                "name": "Sony 7C",
+                "original-price": 48000,
+                "resell-price": 30000,
+                "Location": "U.S.A",
+                "img": "https://www.amateurphotographer.co.uk/wp-content/uploads/2021/11/Sony-Alpha-7C-silver-18.jpg",
+                "Uses": "4 months"
+            },
+            {
+                "name": "Sony A7 iv",
+                "original-price": 68000,
+                "resell-price": 45000,
+                "Location": "Canada",
+                "img": "https://3.img-dpreview.com/files/p/TC3840x2560S3840x2560~sample_galleries/3220969392/5299412470.jpg",
+                "Uses": "3 months"
+            },
+            {
+                "name": "Sony a7R iii",
+                "original-price": 58000,
+                "resell-price": 35000,
+                "Location": "Norway",
+                "img": "https://www.startech.com.bd/image/cache/catalog/camera/dslr-camera/sony/alpha-a7r-iii-42mp-with-16-35mm/alpha-a7r-iii-42mp-with-16-35mm-500x500.jpg",
+                "Uses": "5 months"
+            },
+            {
+                "name": "Sony A6500",
+                "original-price": 108000,
+                "resell-price": 80000,
+                "Location": "Australia",
+                "img": "https://www.startech.com.bd/image/cache/catalog/dslr-camera/sony/alpha-a6500/alpha-a6500-500x500.jpg",
+                "Uses": "2 months"
+            },
+            {
+                "name": "Sony a7 iii",
+                "original-price": 80000,
+                "resell-price": 50000,
+                "Location": "Switzerland",
+                "img": "https://camerasourcebd.com/wp-content/uploads/2022/01/Sony-a7-III-Lens-Kit.jpg",
+                "Uses": "6 months"
+            }
+        ]
+    },
+    {
+        "Brand-name": "Nikon",
+        "products": [
+            {
+                "name": "Nikon D7500",
+                "original-price": 58000,
+                "resell-price": 35000,
+                "Location": "U.K",
+                "img": "https://www.startech.com.bd/image/cache/catalog/camera/dslr-camera/nikon/d7500/d7500-3-500x500.jpg",
+                "Uses": "5 months"
+            },
+            {
+                "name": "Nikon D5300",
+                "original-price": 48000,
+                "resell-price": 30000,
+                "Location": "U.S.A",
+                "img": "https://www.startech.com.bd/image/cache/data/Camera/D5300-500x500.jpg",
+                "Uses": "4 months"
+            },
+            {
+                "name": "Nikon Z50",
+                "original-price": 68000,
+                "resell-price": 45000,
+                "Location": "Canada",
+                "img": "https://www.startech.com.bd/image/cache/catalog/dslr-camera/nikon/z50-mirrorless/z50-mirrorless-1-500x500.jpg",
+                "Uses": "3 months"
+            },
+            {
+                "name": "Nikon D850",
+                "original-price": 58000,
+                "resell-price": 35000,
+                "Location": "Norway",
+                "img": "https://www.buymobile.com.bd/blogger/image/cache/catalog/2019/004/d850-400x400.jpg",
+                "Uses": "5 months"
+            },
+            {
+                "name": "Nikon D3500",
+                "original-price": 108000,
+                "resell-price": 80000,
+                "Location": "Australia",
+                "img": "https://amarpc.com/wp-content/uploads/2021/09/d-3500-1-500x500-1.jpg",
+                "Uses": "2 months"
+            },
+            {
+                "name": "Nikon D500",
+                "original-price": 80000,
+                "resell-price": 50000,
+                "Location": "Switzerland",
+                "img": "https://floralimited.com/Files/Products/NIKON/RegularImage/Nikon-D500---01.jpg",
+                "Uses": "6 months"
+            }
+        ]
+    }
+]
