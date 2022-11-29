@@ -13,40 +13,53 @@ app.use(express.json());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.6hyeg.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-async function run(){
-    try{
+async function run() {
+    try {
         const productCollection = client.db('cam-sec').collection('products');
         const userCollection = client.db('cam-sec').collection('users');
-        app.get('/products', async(req, res) => {
+        const ordersCollection = client.db('cam-sec').collection('orders');
+
+        app.post('/orders', async (req, res) => {
+            const order = req.body;
+            const result = await ordersCollection.insertOne(order);
+            res.send(result);
+        })
+        app.get('/products', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email };
+            const products = await productCollection.find(query).toArray();
+            res.send(products)
+        })
+        app.get('/products', async (req, res) => {
             const query = {};
             const products = await productCollection.find(query).toArray();
             res.send(products);
         });
-        app.get('/products/:id', async(req, res) => {
+        app.get('/products/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: ObjectId(id)}
+            const query = { _id: ObjectId(id) }
             const product = await productCollection.findOne(query);
             res.send(product);
         });
 
-        app.get('/jwt', async(req, res) => {
+        app.get('/jwt', async (req, res) => {
             const email = req.query.email;
-            const query = {email:email}
+            const query = { email: email }
             const user = await userCollection.findOne(query);
-            if(user){
-                const token = jwt.sign({email}, process.env.ACCESS_TOKEN, {expiresIn: '1h'});
-                return res.send({accessToken: token})
+            if (user) {
+                const token = jwt.sign({ email }, process.env.ACCESS_TOKEN, { expiresIn: '7d' });
+                return res.send({ accessToken: token })
             }
-            res.status(403).send({Token: ""})
+            res.status(403).send({ Token: "" })
         })
         //  Store user data
-        app.post('/users', async(req, res) => {
+        app.post('/users', async (req, res) => {
             const user = req.body;
             const result = await userCollection.insertOne(user);
             res.send(result);
         })
     }
-    finally{
+    finally {
 
     }
 }
