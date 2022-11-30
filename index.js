@@ -85,7 +85,13 @@ async function run() {
             }
             res.status(403).send({ Token: "" })
         })
-        //  Store user data
+         //   Get all user data from database
+        app.get('/users', async(req, res) => {
+            const query = {};
+            const users = await userCollection.find(query).toArray();
+            res.send(users)
+        })
+          //  Store user data
         app.post('/users', async (req, res) => {
             const user = req.body;
             const result = await userCollection.insertOne(user);
