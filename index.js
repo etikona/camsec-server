@@ -43,12 +43,12 @@ async function run() {
             const result = await ordersCollection.insertOne(order);
             res.send(result);
         })
-        app.get('/orders',verifyJWT,  async (req, res) => {
+        app.get('/orders', verifyJWT, async (req, res) => {
             const email = req.query.email;
-            
+
             const decodedEmail = req.decoded.email;
-            if(email !== decodedEmail){
-                return res.status(403).send({message: 'Forbidden Access'})
+            if (email !== decodedEmail) {
+                return res.status(403).send({ message: 'Forbidden Access' })
             }
             const query = { email: email };
             const orders = await ordersCollection.find(query).toArray();
@@ -85,13 +85,19 @@ async function run() {
             }
             res.status(403).send({ Token: "" })
         })
-         //   Get all user data from database
-        app.get('/users', async(req, res) => {
+        //   Get all user data from database
+        app.get('/users', async (req, res) => {
             const query = {};
             const users = await userCollection.find(query).toArray();
             res.send(users)
         })
-          //  Store user data
+        app.get('/users/admin/:email', async(req, res) => {
+            const email = req.params.email;
+            const query = { email};
+            const user = await userCollection.findOne(query);
+            res.send({isAdmin : user?.role === 'admin'})
+        })
+        //  Store user data
         app.post('/users', async (req, res) => {
             const user = req.body;
             const result = await userCollection.insertOne(user);
@@ -99,16 +105,16 @@ async function run() {
         })
 
         //  Make Admin
-        app.put('/users/admin/:id', verifyJWT, async(req, res) => {
+        app.put('/users/admin/:id', verifyJWT, async (req, res) => {
             const decodedEmail = req.decoded.email;
-            const query = {email : decodedEmail};
+            const query = { email: decodedEmail };
             const user = await userCollection.findOne(query);
-            if(user?.role !== 'admin'){
-                return res.status(403).send({message: `you can't make any admin.It is a forbidden access`})
+            if (user?.role !== 'admin') {
+                return res.status(403).send({ message: `you can't make any admin.It is a forbidden access` })
             }
             const id = req.params.id;
-            const filter = {_id : ObjectId(id)};
-            const options = {upsert: true}
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true }
             const updatedDoc = {
                 $set: {
                     role: 'admin'
