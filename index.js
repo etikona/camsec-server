@@ -38,31 +38,27 @@ async function run() {
         const userCollection = client.db('cam-sec').collection('users');
         const ordersCollection = client.db('cam-sec').collection('orders');
 
-        app.post('/orders', async (req, res) => {
-            const order = req.body;
-            const result = await ordersCollection.insertOne(order);
-            res.send(result);
-        })
-        app.get('/orders', verifyJWT, async (req, res) => {
+     
+        app.get('/orders',  async (req, res) => {
             const email = req.query.email;
-
-            const decodedEmail = req.decoded.email;
-            if (email !== decodedEmail) {
-                return res.status(403).send({ message: 'Forbidden Access' })
-            }
+            // const decodedEmail = req.decoded.email;
+            // if (email !== decodedEmail) {
+            //     return res.status(403).send({ message: 'Forbidden Access' })
+            // }
             const query = { email: email };
             const orders = await ordersCollection.find(query).toArray();
-            console.log(orders);
+            
             res.send(orders)
         })
 
-        // app.get('/orders/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     console.log(id);
-        //     const query = { _id: ObjectId(id) };
+        // app.get('/orders', async (req, res) => {
+        //     const email = req.params.email;
+        //     const query = { email };
         //     const order = await ordersCollection.findOne(query);
         //     res.send(order);
         // })
+
+
         app.get('/products', async (req, res) => {
             const query = {};
             const products = await productCollection.find(query).toArray();
@@ -101,6 +97,17 @@ async function run() {
         app.post('/users', async (req, res) => {
             const user = req.body;
             const result = await userCollection.insertOne(user);
+            res.send(result);
+        })
+
+        app.post('/orders', async (req, res) => {
+            const order = req.body;
+            const query = {email : order.email}
+            const alreadyOrdered = await ordersCollection.find(query).toArray();
+            if(alreadyOrdered){
+                return res.send(alreadyOrdered)
+            }
+            const result = await ordersCollection.insertOne(order);
             res.send(result);
         })
 
