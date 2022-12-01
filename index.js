@@ -41,23 +41,11 @@ async function run() {
      
         app.get('/orders',  async (req, res) => {
             const email = req.query.email;
-            // const decodedEmail = req.decoded.email;
-            // if (email !== decodedEmail) {
-            //     return res.status(403).send({ message: 'Forbidden Access' })
-            // }
             const query = { email: email };
             const orders = await ordersCollection.find(query).toArray();
             
             res.send(orders)
         })
-
-        // app.get('/orders', async (req, res) => {
-        //     const email = req.params.email;
-        //     const query = { email };
-        //     const order = await ordersCollection.findOne(query);
-        //     res.send(order);
-        // })
-
 
         app.get('/products', async (req, res) => {
             const query = {};
@@ -87,11 +75,19 @@ async function run() {
             const users = await userCollection.find(query).toArray();
             res.send(users)
         })
+        //  Creating Admin hook
         app.get('/users/admin/:email', async(req, res) => {
             const email = req.params.email;
             const query = { email};
             const user = await userCollection.findOne(query);
             res.send({isAdmin : user?.role === 'admin'})
+        })
+        //  Creating seller hook
+        app.get('/users/seller/:email', async(req, res) => {
+            const email = req.params.email;
+            const query = { email};
+            const user = await userCollection.findOne(query);
+            res.send({isSeller : user?.role === 'seller'})
         })
         //  Store user data
         app.post('/users', async (req, res) => {
@@ -103,11 +99,12 @@ async function run() {
         app.post('/orders', async (req, res) => {
             const order = req.body;
             const query = {email : order.email}
-            const alreadyOrdered = await ordersCollection.find(query).toArray();
-            if(alreadyOrdered){
-                return res.send(alreadyOrdered)
-            }
+            // const alreadyOrdered = await ordersCollection.find(query).toArray();
+            // if(alreadyOrdered){
+            //     return res.send(alreadyOrdered)
+            // }
             const result = await ordersCollection.insertOne(order);
+            console.log(result);
             res.send(result);
         })
 
