@@ -102,6 +102,7 @@ async function run() {
         // Products data post on database
         app.post('/products', async (req, res) => {
             const product = req.body;
+            
             const result = await productCollection.insertOne(product);
             res.send(result);
         })
@@ -114,7 +115,7 @@ async function run() {
             //     return res.send(alreadyOrdered)
             // }
             const result = await ordersCollection.insertOne(order);
-            console.log(result);
+            
             res.send(result);
         })
 
