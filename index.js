@@ -43,7 +43,6 @@ async function run() {
             const email = req.query.email;
             const query = { email: email };
             const orders = await ordersCollection.find(query).toArray();
-            
             res.send(orders)
         })
 
@@ -75,6 +74,11 @@ async function run() {
             const users = await userCollection.find(query).toArray();
             res.send(users)
         })
+        app.get('/seller', async (req, res) => {
+            const query = {};
+            const users = await userCollection.find(query).toArray();
+            res.send(users)
+        })
         //  Creating Admin hook
         app.get('/users/admin/:email', async(req, res) => {
             const email = req.params.email;
@@ -93,6 +97,12 @@ async function run() {
         app.post('/users', async (req, res) => {
             const user = req.body;
             const result = await userCollection.insertOne(user);
+            res.send(result);
+        })
+        // Products data post on database
+        app.post('/products', async (req, res) => {
+            const product = req.body;
+            const result = await productCollection.insertOne(product);
             res.send(result);
         })
 
