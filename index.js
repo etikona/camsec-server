@@ -38,8 +38,8 @@ async function run() {
         const userCollection = client.db('cam-sec').collection('users');
         const ordersCollection = client.db('cam-sec').collection('orders');
 
-     
-        app.get('/orders',  async (req, res) => {
+
+        app.get('/orders', async (req, res) => {
             const email = req.query.email;
             const query = { email: email };
             const orders = await ordersCollection.find(query).toArray();
@@ -72,27 +72,30 @@ async function run() {
         app.get('/users', async (req, res) => {
             const query = {};
             const users = await userCollection.find(query).toArray();
-            res.send(users)
+            res.send(users);
         })
-        app.get('/seller', async (req, res) => {
-            const query = {};
-            const users = await userCollection.find(query).toArray();
-            res.send(users)
+        app.get('/sellers', async (req, res) => {
+            const query ={role: 'Seller'};
+            
+            const sellers = await userCollection.find(query).toArray();
+            res.send(sellers)
         })
         //  Creating Admin hook
-        app.get('/users/admin/:email', async(req, res) => {
+        app.get('/users/admin/:email', async (req, res) => {
             const email = req.params.email;
-            const query = { email};
+            const query = { email };
             const user = await userCollection.findOne(query);
-            res.send({isAdmin : user?.role === 'admin'})
+            res.send({ isAdmin: user?.role === 'admin' })
         })
+
         //  Creating seller hook
-        app.get('/users/seller/:email', async(req, res) => {
+        app.get('/users/seller/:email', async (req, res) => {
             const email = req.params.email;
-            const query = { email};
+            const query = { email };
             const user = await userCollection.findOne(query);
-            res.send({isSeller : user?.role === 'seller'})
-        })
+            res.send({ isSeller: user?.role === 'Seller' })
+        });
+
         //  Store user data
         app.post('/users', async (req, res) => {
             const user = req.body;
@@ -102,22 +105,23 @@ async function run() {
         // Products data post on database
         app.post('/products', async (req, res) => {
             const product = req.body;
-            
+
             const result = await productCollection.insertOne(product);
             res.send(result);
         })
 
         app.post('/orders', async (req, res) => {
             const order = req.body;
-            const query = {email : order.email}
+            const query = { email: order.email }
             // const alreadyOrdered = await ordersCollection.find(query).toArray();
             // if(alreadyOrdered){
             //     return res.send(alreadyOrdered)
             // }
             const result = await ordersCollection.insertOne(order);
-            
+
             res.send(result);
         })
+        
 
         //  Make Admin
         app.put('/users/admin/:id', verifyJWT, async (req, res) => {
@@ -138,6 +142,7 @@ async function run() {
             const result = await userCollection.updateOne(filter, updatedDoc, options);
             res.send(result)
         })
+   
     }
     finally {
 
