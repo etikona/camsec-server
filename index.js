@@ -10,12 +10,20 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Require SSL COMMERZ
+const SSLCommerzPayment = require("sslcommerz-lts");
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.6hyeg.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
+
+// SSL Commerz secret
+const store_id = process.env.STORE_ID;
+const store_passwd = process.env.STORE_PASS;
+const is_live = false; //true for live, false for sandbox
 
 function verifyJWT(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -40,11 +48,22 @@ async function run() {
     const userCollection = client.db("cam-sec").collection("users");
     const ordersCollection = client.db("cam-sec").collection("orders");
 
+    // app.get("/orders", async (req, res) => {
+    //   const email = req.query.email;
+    //   const query = { email: email };
+    //   const orders = await ordersCollection.find(query).toArray();
+    //   res.send(orders);
+    // });
     app.get("/orders", async (req, res) => {
-      const email = req.query.email;
-      const query = { email: email };
+      const query = {};
       const orders = await ordersCollection.find(query).toArray();
       res.send(orders);
+    });
+    app.get("/orders/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const order = await ordersCollection.findOne(query);
+      res.send(order);
     });
 
     app.get("/products", async (req, res) => {
@@ -98,6 +117,8 @@ async function run() {
       const sellers = await userCollection.find(query).toArray();
       res.send(sellers);
     });
+    //  Get seller  by id
+
     //  Creating Admin hook
     app.get("/users/admin/:email", async (req, res) => {
       const email = req.params.email;
@@ -138,6 +159,13 @@ async function run() {
       const result = await ordersCollection.insertOne(order);
 
       res.send(result);
+    });
+
+    app.post("/orders/payment/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const payment = await ordersCollection.findOne(query);
+      res.send(payment);
     });
 
     //  Make Admin
